@@ -3,6 +3,9 @@ light-*.png
 light-*.jpg
 pf-*.png
 pf-*.jpg
+prod-*.png
+prod-*.jpg
 _zoom-*.png
+_full-*.png
 preview-1600.png
 style.dark.bak.css
