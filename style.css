@@ -683,7 +683,15 @@ main, .nav, .topbar, .foot { position: relative; z-index: 2; }
 }
 .lf-field select option { background: #140d26; color: #fff; }
 .lf-wide { grid-column: 1 / -1; }
-.lf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.lf-hp {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
 .lf-foot { display: flex; align-items: center; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
 .lf-send { min-width: 170px; justify-content: center; border: 0; cursor: pointer; }
 .lf-send[disabled] { opacity: 0.6; cursor: progress; }
