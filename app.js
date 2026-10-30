@@ -61,6 +61,39 @@ flow.addEventListener('pointerup', (e) => {
 layout()
 window.addEventListener('resize', layout)
 
+/* ===== portrait hover: tilt + spotlight ===== */
+const faceWrap = document.querySelector('.face-wrap')
+const hero = document.getElementById('home')
+
+if (faceWrap && hero && matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  let frame = 0
+  let nx = 0
+  let ny = 0
+
+  const paint = () => {
+    frame = 0
+    faceWrap.style.setProperty('--rx', (-ny * 11).toFixed(2) + 'deg')
+    faceWrap.style.setProperty('--ry', (nx * 13).toFixed(2) + 'deg')
+    faceWrap.style.setProperty('--gx', (50 + nx * 26).toFixed(1) + '%')
+    faceWrap.style.setProperty('--gy', (42 + ny * 26).toFixed(1) + '%')
+  }
+
+  const readPointer = (e) => {
+    const r = faceWrap.getBoundingClientRect()
+    nx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width * 0.9)))
+    ny = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height * 0.9)))
+    if (!frame) frame = requestAnimationFrame(paint)
+  }
+
+  hero.addEventListener('pointerenter', () => faceWrap.classList.add('is-hot'))
+  hero.addEventListener('pointermove', readPointer)
+  hero.addEventListener('pointerleave', () => {
+    faceWrap.classList.remove('is-hot')
+    nx = ny = 0
+    if (!frame) frame = requestAnimationFrame(paint)
+  })
+}
+
 /* ===== scroll spy ===== */
 const pills = [...document.querySelectorAll('.pill')]
 const map = { home: 1, work: 2, about: 3, stats: 4, contact: 0 }
