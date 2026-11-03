@@ -5,7 +5,7 @@ const dotsRow = document.getElementById('dots')
 const btnPrev = document.getElementById('prev')
 const btnNext = document.getElementById('next')
 
-let active = 2
+let active = 0
 
 posters.forEach((_, i) => {
   const d = document.createElement('i')
