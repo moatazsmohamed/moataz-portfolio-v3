@@ -9,3 +9,4 @@ _zoom-*.png
 _full-*.png
 preview-1600.png
 style.dark.bak.css
+.env*
