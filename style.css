@@ -1347,3 +1347,76 @@ a.mc-card {
   .nav.open .menu span:nth-child(2) { opacity: 0; }
   .nav.open .menu span:nth-child(3) { width: 16px; transform: translateY(-5.6px) rotate(-45deg); }
 }
+
+/* ============================================================
+   project detail dialog
+   ============================================================ */
+.pd { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 20px; }
+.pd[hidden] { display: none; }
+.pd-backdrop { position: absolute; inset: 0; background: rgba(20, 12, 34, 0.62); backdrop-filter: blur(6px); animation: pdFade 0.25s ease both; }
+.pd-panel {
+  position: relative; width: min(920px, 100%); max-height: min(88vh, 900px); overflow: auto;
+  background: #fff; border-radius: 22px; box-shadow: 0 40px 90px rgba(20, 12, 34, 0.4);
+  animation: pdIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes pdFade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes pdIn { from { opacity: 0; transform: translateY(18px) scale(0.985) } to { opacity: 1; transform: none } }
+.pd-x {
+  position: absolute; top: 12px; inset-inline-end: 12px; z-index: 2;
+  width: 38px; height: 38px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(255, 255, 255, 0.92); color: #2a1b3d; font-size: 22px; line-height: 1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18); transition: transform 0.2s, background 0.2s;
+}
+.pd-x:hover { transform: scale(1.08); background: #fff; }
+.pd-shot { aspect-ratio: 16 / 9; overflow: hidden; background: #f3eefc; }
+.pd-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.pd-body { padding: 22px 26px 26px; display: flex; flex-direction: column; gap: 14px; }
+.pd-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.pd-kind { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #7c3aed; }
+.pd-head h2 { margin: 4px 0 0; font-size: clamp(20px, 3vw, 27px); line-height: 1.2; color: #1c1233; }
+.pd-year { font-size: 12px; font-weight: 700; color: #8b7fa8; padding-top: 4px; }
+.pd-desc { margin: 0; font-size: 14.5px; line-height: 1.75; color: #4a3f63; }
+.pd-hl { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pd-hl li { position: relative; padding-inline-start: 22px; font-size: 13.5px; line-height: 1.6; color: #3d3355; }
+.pd-hl li::before {
+  content: ""; position: absolute; inset-inline-start: 4px; top: 8px;
+  width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(135deg, #a855f7, #6d28d9);
+}
+.pd-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+.pd-tech span {
+  font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 7px;
+  background: #f4efff; color: #5b21b6; border: 1px solid #e6dbff;
+}
+.pd-links { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 4px; }
+.pd-links a, .pd-links span {
+  display: inline-flex; align-items: center; gap: 7px; padding: 10px 18px; border-radius: 11px;
+  font-size: 13px; font-weight: 800; text-decoration: none;
+}
+.pd-links a.primary { background: linear-gradient(135deg, #7c3aed, #5b21b6); color: #fff; }
+.pd-links a.primary:hover { filter: brightness(1.08); }
+.pd-links a.ghost { background: #f4efff; color: #5b21b6; border: 1px solid #e6dbff; }
+.pd-links span.none { background: #f5f3f8; color: #8b7fa8; }
+body.pd-open { overflow: hidden; }
+
+@media (max-width: 640px) {
+  .pd { padding: 0; }
+  .pd-panel { width: 100%; max-height: 100vh; height: 100%; border-radius: 0; }
+  .pd-body { padding: 18px 18px 28px; }
+  .pd-shot { aspect-ratio: 4 / 3; }
+}
+
+.wc-live-tag {
+  position: absolute; top: 11px; inset-inline-end: 11px;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 9px; border-radius: 999px;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.02em;
+  color: #0f5132; background: rgba(220, 252, 231, 0.94);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  backdrop-filter: blur(8px);
+}
+.wc-live-tag::before {
+  content: ""; width: 5px; height: 5px; border-radius: 50%;
+  background: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.22);
+}
+.wcard { cursor: pointer; }
+.wcard:focus-visible { outline: 3px solid #7c3aed; outline-offset: 3px; }

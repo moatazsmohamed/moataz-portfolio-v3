@@ -265,6 +265,28 @@
 
 </main>
 
+<!-- project detail dialog -->
+<div class="pd" id="pd" hidden>
+  <div class="pd-backdrop" data-pd-close></div>
+  <div class="pd-panel" role="dialog" aria-modal="true" aria-labelledby="pdTitle">
+    <button class="pd-x" type="button" data-pd-close aria-label="إغلاق">&times;</button>
+    <div class="pd-shot"><img id="pdImg" src="" alt="" decoding="async" /></div>
+    <div class="pd-body">
+      <div class="pd-head">
+        <div>
+          <span class="pd-kind" id="pdKind"></span>
+          <h2 id="pdTitle"></h2>
+        </div>
+        <span class="pd-year" id="pdYear" dir="ltr"></span>
+      </div>
+      <p class="pd-desc" id="pdDesc"></p>
+      <ul class="pd-hl" id="pdHl"></ul>
+      <div class="pd-tech" id="pdTech"></div>
+      <div class="pd-links" id="pdLinks"></div>
+    </div>
+  </div>
+</div>
+
 <footer class="foot">
   <span>© <span id="year">2026</span> معتز محمد</span>
   <span class="foot-dot" aria-hidden="true"></span>

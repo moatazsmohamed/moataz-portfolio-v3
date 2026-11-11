@@ -343,10 +343,11 @@ function cardHTML(p) {
     ? `<a class="wc-repo" href="${esc(p.repo)}" target="_blank" rel="noopener">${ICON_REPO} الكود</a>`
     : `<span class="wc-none">كود خاص</span>`
   return `
-  <article class="wcard" data-id="${esc(p.id)}">
+  <article class="wcard" data-id="${esc(p.id)}" tabindex="0" role="button" aria-label="تفاصيل ${esc(p.title)}">
     <div class="wc-shot">
       <img src="${esc(p.img)}" alt="واجهة ${esc(p.title)}" loading="lazy" decoding="async" />
       <span class="wc-badge${p.private ? ' priv' : ''}">${esc(p.kind)}</span>
+      ${p.live ? '<span class="wc-live-tag">لقطة حية</span>' : ''}
     </div>
     <div class="wc-body">
       <div class="wc-top">
@@ -635,5 +636,74 @@ if (navEl && menuBtn) {
   })
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setOpen(false)
+  })
+}
+
+/* ============================================================
+   9. project detail dialog
+   ============================================================ */
+const pdEl = $('#pd')
+if (pdEl) {
+  const pdImg = $('#pdImg')
+  const pdKind = $('#pdKind')
+  const pdTitle = $('#pdTitle')
+  const pdYear = $('#pdYear')
+  const pdDesc = $('#pdDesc')
+  const pdHl = $('#pdHl')
+  const pdTech = $('#pdTech')
+  const pdLinks = $('#pdLinks')
+  let lastFocus = null
+
+  const openPd = (p) => {
+    lastFocus = document.activeElement
+    pdImg.src = p.img
+    pdImg.alt = `واجهة ${p.title}`
+    pdKind.textContent = p.kind
+    pdTitle.textContent = p.title
+    pdYear.textContent = p.year
+    pdDesc.textContent = p.desc
+    pdHl.innerHTML = (p.highlights || []).map((h) => `<li>${esc(h)}</li>`).join('')
+    pdTech.innerHTML = p.tech.map((t) => `<span dir="ltr">${esc(t)}</span>`).join('')
+    pdLinks.innerHTML = [
+      p.live
+        ? `<a class="primary" href="${esc(p.live)}" target="_blank" rel="noopener">${ICON_EXT} زيارة الموقع</a>`
+        : `<span class="none">مش منشور</span>`,
+      p.repo
+        ? `<a class="ghost" href="${esc(p.repo)}" target="_blank" rel="noopener">${ICON_REPO} الكود</a>`
+        : `<span class="none">كود خاص</span>`,
+    ].join('')
+    pdEl.hidden = false
+    document.body.classList.add('pd-open')
+    pdEl.querySelector('.pd-x').focus()
+  }
+
+  const closePd = () => {
+    pdEl.hidden = true
+    document.body.classList.remove('pd-open')
+    if (lastFocus && lastFocus.focus) lastFocus.focus()
+  }
+
+  grid.addEventListener('click', (e) => {
+    if (e.target.closest('.wc-live, .wc-repo')) return
+    const card = e.target.closest('.wcard')
+    if (!card) return
+    const p = PROJECTS.find((x) => x.id === card.dataset.id)
+    if (p) openPd(p)
+  })
+
+  grid.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return
+    const card = e.target.closest('.wcard')
+    if (!card) return
+    e.preventDefault()
+    const p = PROJECTS.find((x) => x.id === card.dataset.id)
+    if (p) openPd(p)
+  })
+
+  pdEl.addEventListener('click', (e) => {
+    if (e.target.closest('[data-pd-close]')) closePd()
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !pdEl.hidden) closePd()
   })
 }
