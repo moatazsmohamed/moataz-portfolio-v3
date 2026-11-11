@@ -29,6 +29,7 @@
     <li><a class="pill brand" href="#home"><span class="dot"></span><b>معتز محمد</b></a></li>
     <li><a class="pill" href="#home">الرئيسية</a></li>
     <li><a class="pill" href="#work">أعمالي</a></li>
+    <li><a class="pill" href="#all-work">كل المشاريع</a></li>
     <li><a class="pill" href="#about">من أنا</a></li>
     <li><a class="pill" href="#stats">إنجازاتي</a></li>
   </ul>
@@ -69,7 +70,7 @@
     <div class="sec-head">
       <div>
         <h2>أعمالي</h2>
-        <p>أحدث أعمالي · <a href="#work">عرض</a></p>
+        <p><span id="projTotal">21</span> مشروع منشور · <a href="#all-work">عرض الكل</a></p>
       </div>
       <div class="rail-nav">
         <button class="rbtn" id="prev" aria-label="السابق"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -77,254 +78,53 @@
       </div>
     </div>
 
-    <div class="coverflow" id="coverflow" tabindex="0" role="group" aria-label="معرض المشاريع — استخدم الأسهم أو السحب للتنقل">
+    <div class="coverflow" id="coverflow" tabindex="0" role="group" aria-label="معرض المشاريع المميزة — استخدم الأسهم أو السحب للتنقل">
       <div class="sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <article class="poster" data-idx="0" style="--i:0">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">taqasim.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/taqasim-preview.webp" alt="واجهة تَقاسيم — آلة المقامات والإيقاعات العربية"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">آلة صوت</span><span class="p-no">01</span></div>
-        <div class="p-bot">
-          <h3>تَقاسيم</h3>
-          <p>وتر بيتولّد قدامك بمعادلة Karplus–Strong: سبعة مقامات بدرجاتها بالسنت، ستة أدوار إيقاع، ومؤلف تَقاسيم ببذرة عشوائية — بصفر عيّنة صوتية.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://taqasim.vercel.app" target="_blank" rel="noopener" aria-label="افتح تَقاسيم"></a>
-      </article>
-      <article class="poster" data-idx="1" style="--i:1">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">sportswear-warehouse-manager.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/erp-preview.webp" alt="واجهة نظام إدارة المخزون والجرد الشامل"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">نظام ERP</span><span class="p-no">02</span></div>
-        <div class="p-bot">
-          <h3>General Inventory ERP</h3>
-          <p>نظام مخزون وجرد شامل بالعربي: استيراد مستندات ومراجعتها قبل الاعتماد، توزيع ذكي للكميات، باركود كهوية، جرد فعلي، وتقارير لحظية.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://sportswear-warehouse-manager.vercel.app" target="_blank" rel="noopener" aria-label="افتح General Inventory ERP"></a>
-      </article>
-      <article class="poster" data-idx="2" style="--i:2">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">tasheela.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/tasheela-preview.webp" alt="واجهة منصة تسهيلة للمحاسبة والتشغيل"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">منصة محاسبة</span><span class="p-no">03</span></div>
-        <div class="p-bot">
-          <h3>تسهيلة</h3>
-          <p>منصة محاسبة وتشغيل متكاملة لفريق المحاسبة — كل حساب في مكانه، وشغل يومي منظم.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://tasheela.vercel.app" target="_blank" rel="noopener" aria-label="افتح تسهيلة"></a>
-      </article>
-      <article class="poster" data-idx="3" style="--i:3">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">social-intelligence-gilt.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/social-intelligence-preview.webp" alt="واجهة منصة Social Intelligence للرصد والتحليل"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">رصد وتحليل</span><span class="p-no">04</span></div>
-        <div class="p-bot">
-          <h3>Social Intelligence</h3>
-          <p>منصة ذكاء اجتماعي: افهم كل حساب من مكان واحد — رصد وتحليل ولوحة تحكم للمطوّر.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://social-intelligence-gilt.vercel.app" target="_blank" rel="noopener" aria-label="افتح Social Intelligence"></a>
-      </article>
-      <article class="poster" data-idx="4" style="--i:4">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">zakhraf.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/zakhraf-preview.webp" alt="واجهة استوديو زَخْرَف — مولّد الزخرفة الهندسية"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">زخرفة توليدية</span><span class="p-no">05</span></div>
-        <div class="p-bot">
-          <h3>زَخْرَف</h3>
-          <p>محرّك يرسم نجوم girih ويضفر خطوطها على الشاشة لحظيًّا: أربع رتب تناظر، ١٢ لوحة ألوان تاريخية، وتصدير بدقة 2048.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://zakhraf.vercel.app" target="_blank" rel="noopener" aria-label="افتح زَخْرَف"></a>
-      </article>
-      <article class="poster" data-idx="5" style="--i:5">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">car-showcase-weld.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/marab-preview.webp" alt="واجهة مِرَآب — معرض السيارات التفاعلي"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">معرض تفاعلي</span><span class="p-no">06</span></div>
-        <div class="p-bot">
-          <h3>مِرَآب</h3>
-          <p>معرض سيارات فخم بالعربي: عدّاد افتتاح، شرح الاسم بالحركة، مخصّص ألوان، وحلبة تُسجّل فيها لفة حقيقية.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://car-showcase-weld.vercel.app" target="_blank" rel="noopener" aria-label="افتح مِرَآب"></a>
-      </article>
-      <article class="poster" data-idx="6" style="--i:6">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">motryx-delta.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.28">
-          <img src="assets/motryx-preview.webp" alt="واجهة موقع MOTRYX — استوديو برمجيات وذكاء اصطناعي"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">استوديو</span><span class="p-no">07</span></div>
-        <div class="p-bot">
-          <h3>MOTRYX</h3>
-          <p>هوية رقمية كاملة لاستوديو برمجيات وذكاء اصطناعي: موقع عربي وإنجليزي، صفحات خدمات، ودراسات حالة.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://motryx-delta.vercel.app" target="_blank" rel="noopener" aria-label="افتح MOTRYX"></a>
-      </article>
-      <article class="poster" data-idx="7" style="--i:7">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">mtzz-ai-pi.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.28">
-          <img src="assets/mtz-ai-preview.webp" alt="واجهة MTZ AI — مساحة عمل شخصية للذكاء الاصطناعي"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">ذكاء اصطناعي</span><span class="p-no">08</span></div>
-        <div class="p-bot">
-          <h3>MTZ AI</h3>
-          <p>مساحة عمل شخصية للذكاء الاصطناعي: محادثات محفوظة وذاكرة خاصة، بواجهة عربية وإنجليزية سليمة الاتجاه.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://mtzz-ai-pi.vercel.app" target="_blank" rel="noopener" aria-label="افتح MTZ AI"></a>
-      </article>
-      <article class="poster" data-idx="8" style="--i:8">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">pcverse-lac.vercel.app</span></div>
-        <div class="p-shot" style="--ar:0.781">
-          <img src="assets/pcverse-preview.webp" alt="واجهة PCVERSE — مختبر الحاسب ثلاثي الأبعاد"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">مختبر 3D</span><span class="p-no">09</span></div>
-        <div class="p-bot">
-          <h3>PCVERSE</h3>
-          <p>مختبر حاسب تفاعلي ثلاثي الأبعاد: تفكّك المكوّنات، تفهم وظايفها، وتتعلّم بالعربي والإنجليزي.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://pcverse-lac.vercel.app" target="_blank" rel="noopener" aria-label="افتح PCVERSE"></a>
-      </article>
-      <article class="poster" data-idx="9" style="--i:9">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">computer-explorer-three.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.28">
-          <img src="assets/computer-explorer-preview.webp" alt="واجهة مستكشف الحاسب — تفكيك المكوّنات ثلاثي الأبعاد"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">3D تفاعلي</span><span class="p-no">10</span></div>
-        <div class="p-bot">
-          <h3>مستكشف الحاسب</h3>
-          <p>تفكيك الحاسب قطعة قطعة في مشهد ثلاثي الأبعاد: تدوير، تكبير، وشرح لكل مكوّن بالعربي.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://computer-explorer-three.vercel.app" target="_blank" rel="noopener" aria-label="افتح مستكشف الحاسب"></a>
-      </article>
-      <article class="poster" data-idx="10" style="--i:10">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">madar-m.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/madar-login.webp" alt="واجهة منصة مدار"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">SaaS</span><span class="p-no">11</span></div>
-        <div class="p-bot">
-          <h3>مدار</h3>
-          <p>منصة لإدارة الفرق والمساحات العملية بتصميم عربي كامل.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://madar-m.vercel.app/login" target="_blank" rel="noopener" aria-label="افتح مدار"></a>
-      </article>
-      <article class="poster" data-idx="11" style="--i:11">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">webvault-app.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/webvault-preview.webp" alt="واجهة تطبيق WebVault"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">تطبيق ويب</span><span class="p-no">12</span></div>
-        <div class="p-bot">
-          <h3>WebVault</h3>
-          <p>خزنة ملفات في المتصفح: رفع، تنظيم، ومشاركة بدون سيرفر.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://webvault-app.vercel.app" target="_blank" rel="noopener" aria-label="افتح WebVault"></a>
-      </article>
-      <article class="poster" data-idx="12" style="--i:12">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">tafrawear.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/tafra-preview.webp" alt="واجهة متجر تافرا"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">متجر</span><span class="p-no">13</span></div>
-        <div class="p-bot">
-          <h3>تافرا</h3>
-          <p>متجر ملابس كامل: كتالوج، سلة، وتجربة شراء سريعة.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://tafrawear.vercel.app" target="_blank" rel="noopener" aria-label="افتح تافرا"></a>
-      </article>
-      <article class="poster" data-idx="13" style="--i:13">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">ms-wood-works.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/mswood-preview.webp" alt="واجهة موقع MS Woodworks"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">موقع تعريفي</span><span class="p-no">14</span></div>
-        <div class="p-bot">
-          <h3>MS Woodworks</h3>
-          <p>هوية رقمية لورشة خشب: أعمال، معرض صور، وتواصل مباشر.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://ms-wood-works.vercel.app/#home" target="_blank" rel="noopener" aria-label="افتح MS Woodworks"></a>
-      </article>
-      <article class="poster" data-idx="14" style="--i:14">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">moatazsmohamed.github.io</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/personal-site-preview.webp" alt="واجهة الموقع الشخصي لمعتز محمد"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">موقع شخصي</span><span class="p-no">15</span></div>
-        <div class="p-bot">
-          <h3>الموقع الشخصي</h3>
-          <p>موقعي الشخصي بالإنجليزي: نبذة، السيرة الذاتية، ومشاريعي البرمجية في مكان واحد.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://moatazsmohamed.github.io" target="_blank" rel="noopener" aria-label="افتح الموقع الشخصي"></a>
-      </article>
-      <article class="poster" data-idx="15" style="--i:15">
-        <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">portfolio-moataz.vercel.app</span></div>
-        <div class="p-shot" style="--ar:1.778">
-          <img src="assets/portfolio-preview.webp" alt="النسخة الأولى من البورتفوليو"  />
-          <span class="p-sheen" aria-hidden="true"></span>
-        </div>
-        <div class="p-veil"></div>
-        <div class="p-top"><span class="p-kind">موقع شخصي</span><span class="p-no">16</span></div>
-        <div class="p-bot">
-          <h3>البورتفوليو الأول</h3>
-          <p>النسخة اللي بدأت منها: عربي وإنجليزي، وصندوق رسائل حقيقي.</p>
-          <span class="p-go">زيارة المشروع <svg viewBox="0 0 24 24"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <a class="p-link" href="https://portfolio-moataz.vercel.app" target="_blank" rel="noopener" aria-label="افتح البورتفوليو القديم"></a>
-      </article>
     </div>
 
     <div class="cf-foot">
-      <span class="cf-count" id="cfCount" dir="ltr"><b>01</b> / 16</span>
+      <span class="cf-count" id="cfCount" dir="ltr"><b>01</b> / 06</span>
       <div class="dots-row" id="dots" aria-hidden="true"></div>
       <span class="cf-hint">اسحب · عجلة الفأرة · الأسهم للتنقّل</span>
+    </div>
+  </section>
+
+  <!-- ============ ALL WORK ============ -->
+  <section class="sec all-work" id="all-work">
+    <div class="sec-head">
+      <div>
+        <h2>كل المشاريع</h2>
+        <p>فلتر بالتصنيف أو ابحث بالاسم والتقنية</p>
+      </div>
+    </div>
+
+    <div class="work-tools">
+      <div class="w-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="search" id="wSearch" placeholder="ابحث باسم المشروع أو التقنية…" aria-label="بحث في المشاريع" autocomplete="off" />
+        <button class="w-clear" id="wClear" type="button" aria-label="مسح البحث" hidden>×</button>
+      </div>
+      <div class="w-filters" id="wFilters" role="tablist" aria-label="تصنيفات المشاريع"></div>
+    </div>
+
+    <div class="w-meta">
+      <span id="wCount" aria-live="polite">21 مشروع</span>
+      <div class="w-sort">
+        <label for="wSort">ترتيب</label>
+        <select id="wSort">
+          <option value="featured">المميز أولاً</option>
+          <option value="new">الأحدث</option>
+          <option value="az">أبجدياً</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="work-grid" id="workGrid"></div>
+
+    <div class="w-empty" id="wEmpty" hidden>
+      <strong>مفيش مشروع بالاسم ده</strong>
+      <p>جرّب كلمة تانية أو اختار «الكل».</p>
+      <button class="ghost-btn" id="wReset" type="button">إعادة ضبط الفلاتر</button>
     </div>
   </section>
 
@@ -484,6 +284,7 @@
   </a>
 </div>
 
+<script src="projects.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

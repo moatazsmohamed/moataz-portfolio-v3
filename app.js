@@ -1,14 +1,64 @@
-/* ===== coverflow ===== */
-const flow = document.getElementById('coverflow')
-const posters = [...flow.querySelectorAll('.poster')]
-const dotsRow = document.getElementById('dots')
-const cfCount = document.getElementById('cfCount')
-const btnPrev = document.getElementById('prev')
-const btnNext = document.getElementById('next')
+/* ============================================================
+   portfolio v3 — app
+   المشاريع كلها من projects.js (مصدر واحد)
+   ============================================================ */
 
-const N = posters.length
+const $ = (s, r = document) => r.querySelector(s)
+const $$ = (s, r = document) => [...r.querySelectorAll(s)]
+const clamp = (v, a, b) => (v < a ? a : v > b ? b : v)
+const pad2 = (n) => String(n).padStart(2, '0')
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
+
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
 const finePointer = matchMedia('(pointer: fine)').matches
+
+/* ---------- icons ---------- */
+const ICON_GO = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5m0 0 6-6m-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+const ICON_EXT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-8 8M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+const ICON_REPO = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6 0C6.8 1.8 5.8 2.1 5.8 2.1a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.4 8.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+
+/* ============================================================
+   1. COVERFLOW — featured projects
+   ============================================================ */
+const featured = PROJECTS.filter((p) => p.featured)
+const flow = $('#coverflow')
+const dotsRow = $('#dots')
+const cfCount = $('#cfCount')
+const btnPrev = $('#prev')
+const btnNext = $('#next')
+
+flow.insertAdjacentHTML('beforeend', featured.map((p, i) => `
+  <article class="poster" data-idx="${i}" style="--i:${i}">
+    <div class="p-bar"><i></i><i></i><i></i><span class="p-url" dir="ltr">${esc(p.live ? p.live.replace(/^https?:\/\//, '') : 'private')}</span></div>
+    <div class="p-shot" style="--ar:${p.ar}">
+      <img src="${esc(p.img)}" alt="واجهة ${esc(p.title)}" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async" />
+      <span class="p-sheen" aria-hidden="true"></span>
+    </div>
+    <div class="p-veil"></div>
+    <div class="p-top"><span class="p-kind">${esc(p.kind)}</span><span class="p-no">${pad2(i + 1)}</span></div>
+    <div class="p-bot">
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.desc)}</p>
+      <span class="p-go">${p.live ? 'زيارة المشروع' : 'مشروع خاص'} ${ICON_GO}</span>
+    </div>
+    ${p.live ? `<a class="p-link" href="${esc(p.live)}" target="_blank" rel="noopener" aria-label="افتح ${esc(p.title)}"></a>` : ''}
+  </article>
+`).join(''))
+
+const posters = $$('.poster', flow)
+const N = posters.length
+
+posters.forEach((_, i) => {
+  const d = document.createElement('i')
+  d.addEventListener('click', () => go(i))
+  dotsRow.appendChild(d)
+})
+const dots = [...dotsRow.children]
+
+posters.forEach((p) => {
+  const ar = p.querySelector('.p-shot')?.style.getPropertyValue('--ar')
+  if (ar) p.style.setProperty('--ar', ar)
+})
 
 let target = 0
 let pos = 0
@@ -27,22 +77,6 @@ let wheelAt = 0
 let seen = false
 let stamps = null
 let started = reduced
-
-const clamp = (v, a, b) => (v < a ? a : v > b ? b : v)
-const pad2 = (n) => String(n).padStart(2, '0')
-
-posters.forEach((_, i) => {
-  const d = document.createElement('i')
-  d.addEventListener('click', () => go(i))
-  dotsRow.appendChild(d)
-})
-const dots = [...dotsRow.children]
-
-posters.forEach((p) => {
-  const ar = p.querySelector('.p-shot')?.style.getPropertyValue('--ar')
-  if (ar) p.style.setProperty('--ar', ar)
-})
-
 let M = null
 
 function metrics() {
@@ -110,18 +144,12 @@ function render(now) {
 
   dots.forEach((el, i) => el.classList.toggle('on', i === focus))
   if (cfCount) cfCount.innerHTML = `<b>${pad2(focus + 1)}</b> / ${pad2(N)}`
-  btnPrev.style.opacity = focus === 0 ? 0.35 : 1
-  btnNext.style.opacity = focus === N - 1 ? 0.35 : 1
+  if (btnPrev) btnPrev.style.opacity = focus === 0 ? 0.35 : 1
+  if (btnNext) btnNext.style.opacity = focus === N - 1 ? 0.35 : 1
 }
 
-function settled() {
-  return dragging === false && Math.abs(target - pos) < 0.001 && Math.abs(vel) < 0.001
-}
-
-function revealing(now) {
-  if (!stamps) return false
-  return stamps.some((s) => now - s < 660)
-}
+const settled = () => dragging === false && Math.abs(target - pos) < 0.001 && Math.abs(vel) < 0.001
+const revealing = (now) => (stamps ? stamps.some((s) => now - s < 660) : false)
 
 function tick(now) {
   raf = 0
@@ -158,8 +186,8 @@ function go(i) {
   kick()
 }
 
-btnPrev.addEventListener('click', () => go(target - 1))
-btnNext.addEventListener('click', () => go(target + 1))
+btnPrev?.addEventListener('click', () => go(target - 1))
+btnNext?.addEventListener('click', () => go(target + 1))
 
 flow.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') { e.preventDefault(); go(target + 1) }
@@ -193,7 +221,6 @@ function endDrag() {
   kick()
 }
 
-/* native link-drag would steal the pointer before our track can move */
 flow.addEventListener('dragstart', (e) => e.preventDefault())
 
 flow.addEventListener('pointerdown', (e) => {
@@ -212,7 +239,6 @@ flow.addEventListener('pointerdown', (e) => {
   kick()
 })
 
-/* a drag must not open the card it started on */
 flow.addEventListener('click', (e) => {
   const wasDrag = movedPx > 8
   movedPx = 0
@@ -241,7 +267,6 @@ flow.addEventListener('wheel', (e) => {
   }
 }, { passive: false })
 
-/* ===== tilt the live preview like a real screen ===== */
 if (finePointer && !reduced) {
   posters.forEach((p) => {
     const shot = p.querySelector('.p-shot')
@@ -261,12 +286,11 @@ if (finePointer && !reduced) {
   })
 }
 
-/* ===== entry cascade ===== */
 if (reduced) {
   render(performance.now())
 } else {
   posters.forEach((p) => { p.style.opacity = '0' })
-  const workSec = document.getElementById('work')
+  const workSec = $('#work')
   const startCascade = () => {
     if (stamps) return
     const now = performance.now()
@@ -281,24 +305,167 @@ if (reduced) {
       enterIO.disconnect()
     }
   }, { threshold: 0.25 })
-  enterIO.observe(workSec)
+  if (workSec) enterIO.observe(workSec)
   setTimeout(() => { if (!stamps) { seen = true; startCascade() } }, 2600)
 }
 
 window.addEventListener('resize', () => { M = null; kick() })
 kick()
 
+/* ============================================================
+   2. ALL WORK — filters, search, sort
+   ============================================================ */
+const grid = $('#workGrid')
+const filtersEl = $('#wFilters')
+const searchEl = $('#wSearch')
+const clearEl = $('#wClear')
+const sortEl = $('#wSort')
+const countEl = $('#wCount')
+const emptyEl = $('#wEmpty')
+const resetEl = $('#wReset')
 
-/* ===== portrait hover: tilt + spotlight ===== */
-const faceWrap = document.querySelector('.face-wrap')
-const hero = document.getElementById('home')
+let activeCat = 'all'
+let query = ''
+let sortBy = 'featured'
 
-if (faceWrap && hero && matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+const catCount = (id) => (id === 'all' ? PROJECTS.length : PROJECTS.filter((p) => p.cat === id).length)
+
+filtersEl.innerHTML = CATS.map((c) => `
+  <button type="button" role="tab" data-cat="${c.id}" class="${c.id === 'all' ? 'on' : ''}"
+          aria-selected="${c.id === 'all'}">${esc(c.label)}<span class="n">${catCount(c.id)}</span></button>
+`).join('')
+
+function cardHTML(p) {
+  const live = p.live
+    ? `<a class="wc-live" href="${esc(p.live)}" target="_blank" rel="noopener">${ICON_EXT} زيارة</a>`
+    : `<span class="wc-none">مش منشور</span>`
+  const repo = p.repo
+    ? `<a class="wc-repo" href="${esc(p.repo)}" target="_blank" rel="noopener">${ICON_REPO} الكود</a>`
+    : `<span class="wc-none">كود خاص</span>`
+  return `
+  <article class="wcard" data-id="${esc(p.id)}">
+    <div class="wc-shot">
+      <img src="${esc(p.img)}" alt="واجهة ${esc(p.title)}" loading="lazy" decoding="async" />
+      <span class="wc-badge${p.private ? ' priv' : ''}">${esc(p.kind)}</span>
+    </div>
+    <div class="wc-body">
+      <div class="wc-top">
+        <h3>${esc(p.title)}</h3>
+        <span class="wc-year" dir="ltr">${esc(p.year)}</span>
+      </div>
+      <p>${esc(p.desc)}</p>
+      <div class="wc-tech">${p.tech.map((t) => `<span dir="ltr">${esc(t)}</span>`).join('')}</div>
+      <div class="wc-links">${live}${repo}</div>
+    </div>
+  </article>`
+}
+
+function matches(p) {
+  if (activeCat !== 'all' && p.cat !== activeCat) return false
+  if (!query) return true
+  const hay = [p.title, p.kind, p.desc, ...p.tech, p.year].join(' ').toLowerCase()
+  return query.split(/\s+/).filter(Boolean).every((w) => hay.includes(w))
+}
+
+function sortList(list) {
+  const out = [...list]
+  if (sortBy === 'new') out.sort((a, b) => b.year.localeCompare(a.year) || a.title.localeCompare(b.title, 'ar'))
+  else if (sortBy === 'az') out.sort((a, b) => a.title.localeCompare(b.title, 'ar'))
+  else out.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0))
+  return out
+}
+
+let revealIO = null
+function paint() {
+  const list = sortList(PROJECTS.filter(matches))
+  grid.innerHTML = list.map(cardHTML).join('')
+  countEl.textContent = list.length === 1 ? 'مشروع واحد' : `${list.length} مشروع`
+  emptyEl.hidden = list.length > 0
+  grid.hidden = list.length === 0
+
+  const cards = $$('.wcard', grid)
+  if (reduced) {
+    cards.forEach((c) => c.classList.add('in'))
+  } else {
+    revealIO?.disconnect()
+    revealIO = new IntersectionObserver((entries, obs) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return
+        en.target.classList.add('in')
+        obs.unobserve(en.target)
+      })
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' })
+    cards.forEach((c, i) => {
+      c.style.transitionDelay = `${Math.min(i, 8) * 40}ms`
+      revealIO.observe(c)
+    })
+  }
+}
+
+filtersEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-cat]')
+  if (!btn) return
+  activeCat = btn.dataset.cat
+  $$('button', filtersEl).forEach((b) => {
+    const on = b === btn
+    b.classList.toggle('on', on)
+    b.setAttribute('aria-selected', String(on))
+  })
+  paint()
+})
+
+let searchTimer = 0
+searchEl.addEventListener('input', () => {
+  clearEl.hidden = !searchEl.value
+  clearTimeout(searchTimer)
+  searchTimer = setTimeout(() => {
+    query = searchEl.value.trim().toLowerCase()
+    paint()
+  }, 130)
+})
+
+clearEl.addEventListener('click', () => {
+  searchEl.value = ''
+  clearEl.hidden = true
+  query = ''
+  paint()
+  searchEl.focus()
+})
+
+sortEl.addEventListener('change', () => {
+  sortBy = sortEl.value
+  paint()
+})
+
+resetEl.addEventListener('click', () => {
+  activeCat = 'all'
+  query = ''
+  sortBy = 'featured'
+  searchEl.value = ''
+  clearEl.hidden = true
+  sortEl.value = 'featured'
+  $$('button', filtersEl).forEach((b) => {
+    const on = b.dataset.cat === 'all'
+    b.classList.toggle('on', on)
+    b.setAttribute('aria-selected', String(on))
+  })
+  paint()
+})
+
+paint()
+
+/* ============================================================
+   3. portrait hover: tilt + spotlight
+   ============================================================ */
+const faceWrap = $('.face-wrap')
+const hero = $('#home')
+
+if (faceWrap && hero && finePointer && !reduced) {
   let frame = 0
   let nx = 0
   let ny = 0
 
-  const paint = () => {
+  const paintFace = () => {
     frame = 0
     faceWrap.style.setProperty('--rx', (-ny * 11).toFixed(2) + 'deg')
     faceWrap.style.setProperty('--ry', (nx * 13).toFixed(2) + 'deg')
@@ -310,7 +477,7 @@ if (faceWrap && hero && matchMedia('(pointer: fine)').matches && !matchMedia('(p
     const r = faceWrap.getBoundingClientRect()
     nx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width * 0.9)))
     ny = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height * 0.9)))
-    if (!frame) frame = requestAnimationFrame(paint)
+    if (!frame) frame = requestAnimationFrame(paintFace)
   }
 
   hero.addEventListener('pointerenter', () => faceWrap.classList.add('is-hot'))
@@ -318,30 +485,34 @@ if (faceWrap && hero && matchMedia('(pointer: fine)').matches && !matchMedia('(p
   hero.addEventListener('pointerleave', () => {
     faceWrap.classList.remove('is-hot')
     nx = ny = 0
-    if (!frame) frame = requestAnimationFrame(paint)
+    if (!frame) frame = requestAnimationFrame(paintFace)
   })
 }
 
-/* ===== scroll spy ===== */
-const pills = [...document.querySelectorAll('.pill')]
-const map = { home: 1, work: 2, about: 3, stats: 4, contact: 0 }
+/* ============================================================
+   4. scroll spy
+   ============================================================ */
+const pills = $$('.pill')
+const map = { home: 1, work: 2, 'all-work': 2, about: 3, stats: 4, contact: 0 }
 
 const spy = new IntersectionObserver((entries) => {
   entries.forEach((en) => {
     if (!en.isIntersecting) return
     pills.forEach((p) => p.classList.remove('active'))
     const idx = map[en.target.id]
-    if (idx) pills[idx].classList.add('active')
+    if (idx) pills[idx]?.classList.add('active')
   })
 }, { rootMargin: '-45% 0px -50% 0px' })
 
-;['home', 'work', 'about', 'stats', 'contact'].forEach((id) => {
+;['home', 'work', 'all-work', 'about', 'stats', 'contact'].forEach((id) => {
   const el = document.getElementById(id)
   if (el) spy.observe(el)
 })
 
-/* ===== reveal ===== */
-const targets = document.querySelectorAll('.sec-head, .tech-grid li, .about-photo, .about-text, .stat, .contact > *')
+/* ============================================================
+   5. reveal on scroll
+   ============================================================ */
+const targets = $$('.sec-head, .tech-grid li, .about-photo, .about-text, .stat, .contact > *')
 targets.forEach((el) => el.setAttribute('data-reveal', ''))
 
 const io = new IntersectionObserver((entries, obs) => {
@@ -353,7 +524,9 @@ const io = new IntersectionObserver((entries, obs) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
 targets.forEach((el) => io.observe(el))
 
-/* ===== lead form ===== */
+/* ============================================================
+   6. lead form
+   ============================================================ */
 const SUPABASE_URL = 'https://ppihzxabbysozbdmweje.supabase.co'
 const SUPABASE_KEY = 'sb_publishable_7Re-MNRopMsOjopgV2YNjg_fN0yUDiL'
 const SUPABASE_ESM = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
@@ -368,11 +541,12 @@ function getSupabase() {
   return sbPromise
 }
 
-const leadForm = document.getElementById('leadForm')
-const leadStatus = document.getElementById('leadStatus')
+const leadForm = $('#leadForm')
+const leadStatus = $('#leadStatus')
 const leadBtn = leadForm?.querySelector('.lf-send')
 
 function setLeadStatus(text, tone) {
+  if (!leadStatus) return
   leadStatus.textContent = text
   leadStatus.classList.toggle('is-ok', tone === 'ok')
   leadStatus.classList.toggle('is-error', tone === 'error')
@@ -409,7 +583,7 @@ leadForm?.addEventListener('submit', async (event) => {
       p_message: (kind ? `نوع المشروع: ${kind}\n\n${idea}` : idea).slice(0, 4000),
       p_lang: 'ar',
       p_page: `${location.origin}${location.pathname}`.slice(0, 200),
-      p_honeypot: '',
+      p_honeypot: ''
     })
     if (error) throw error
     leadForm.reset()
@@ -429,5 +603,37 @@ leadForm?.addEventListener('submit', async (event) => {
   }
 })
 
-/* ===== year ===== */
-document.getElementById('year').textContent = new Date().getFullYear()
+/* ============================================================
+   7. year + counts
+   ============================================================ */
+const yearEl = $('#year')
+if (yearEl) yearEl.textContent = new Date().getFullYear()
+
+const totalEl = $('#projTotal')
+if (totalEl) totalEl.textContent = PROJECTS.length
+
+/* ============================================================
+   8. mobile nav drawer
+   ============================================================ */
+const navEl = $('#nav')
+const menuBtn = $('#menu')
+
+if (navEl && menuBtn) {
+  const setOpen = (open) => {
+    navEl.classList.toggle('open', open)
+    menuBtn.setAttribute('aria-expanded', String(open))
+  }
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation()
+    setOpen(!navEl.classList.contains('open'))
+  })
+  navEl.addEventListener('click', (e) => {
+    if (e.target.closest('.pill')) setOpen(false)
+  })
+  document.addEventListener('click', (e) => {
+    if (!navEl.contains(e.target)) setOpen(false)
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false)
+  })
+}
