@@ -1,3 +1,10 @@
+// ======================================================================
+// moataz-portfolio-v3
+// Copyright (c) 2026 Moataz Mohamed <mtzm2225@gmail.com> — all rights reserved.
+// Author: Moataz Mohamed  <https://github.com/moatazsmohamed>
+// Fingerprint: e8fa428b72fc0e43a2632e36723784d1
+// This notice is part of the work and must not be removed.
+// ======================================================================
 /* ============================================================
    كل المشاريع — مصدر واحد للحقيقة
    كل وصف مكتوب من README / وصف الريبو الحقيقي، مش مخترع.
